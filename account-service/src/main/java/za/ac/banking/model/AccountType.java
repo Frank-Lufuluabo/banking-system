@@ -1,0 +1,7 @@
+package za.ac.banking.model;
+
+public enum AccountType {
+    SAVINGS,
+    CURRENT,
+    FIXED_DEPOSIT
+}
