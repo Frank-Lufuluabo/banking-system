@@ -20,6 +20,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    @PostMapping
     public ResponseEntity<AccountResponse> createAccount(
             @Valid @RequestBody CreateAccountRequest Request) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -38,4 +39,38 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getBalance(accountNumber));
     }
 
+    @PutMapping("/{accountNumber}/block")
+    public ResponseEntity<String> blockAccount(
+            @PathVariable String accountNumber) {
+        accountService.blockAccount(accountNumber);
+        return ResponseEntity.ok("Account blocked Successfully");
+    }
+
+    /**
+     *  SAFA STEP 1 - Deduct Balance
+     *  Called by Transaction Service when transfer is initiated
+     */
+
+    @PutMapping("/{accountNumber}/deduct")
+    public ResponseEntity<String> deductBalance(
+            @PathVariable String accountNumber,
+            @RequestParam BigDecimal amount) {
+        accountService.deductBalance(accountNumber, amount);
+        return ResponseEntity.ok("Balance deducted Successfully");
+    }
+
+    /**
+     *  SAGA STEP 4 - Compensating transaction endpoint
+     *  CALLED BY TRANSACTION SERVICE in TWO SCENARIOS:
+     *  1. Fraud detected -> refund sender (undo step 1)
+     *  Called by Transaction Service when transfer is initiated
+     */
+
+    @PutMapping("/{accountNumber}/credit")
+    public ResponseEntity<String> creditBalance(
+            @PathVariable String accountNumber,
+            @RequestParam BigDecimal amount) {
+        accountService.creditBalance(accountNumber, amount);
+        return ResponseEntity.ok("Balance credited Successfully");
+    }
 }
