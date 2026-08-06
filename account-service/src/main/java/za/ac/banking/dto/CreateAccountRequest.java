@@ -30,6 +30,6 @@ public class CreateAccountRequest {
 
     @NotBlank(message = "initial deposit is required")
     @Positive(message = "initial deposit must be positive")
-    private BigDecimal balance;
+    private BigDecimal initialDeposit;
 
 }
