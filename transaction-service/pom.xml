@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>za.ac.banking</groupId>
-	<artifactId>trasanction-service</artifactId>
+	<artifactId>transaction-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
