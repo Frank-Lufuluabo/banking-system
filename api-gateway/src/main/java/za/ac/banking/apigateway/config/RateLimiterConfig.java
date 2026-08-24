@@ -1,4 +1,4 @@
-package za.ac.banking.config;
+package za.ac.banking.apigateway.config;
 
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
