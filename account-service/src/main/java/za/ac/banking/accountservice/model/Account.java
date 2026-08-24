@@ -1,4 +1,4 @@
-package za.ac.banking.model;
+package za.ac.banking.accountservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String accountNumber;
 
     @Column(nullable = false)

@@ -1,25 +1,26 @@
-package za.ac.banking.controller;
+package za.ac.banking.accountservice.controller;
 
+import za.ac.banking.accountservice.dto.AccountResponse;
+import za.ac.banking.accountservice.dto.CreateAccountRequest;
+import za.ac.banking.accountservice.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import za.ac.banking.dto.AccountResponse;
-import za.ac.banking.dto.CreateAccountRequest;
-import za.ac.banking.service.AccountService;
 
 import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class AccountController {
 
     private final AccountService accountService;
 
+    // Create new bank account
     @PostMapping
     public ResponseEntity<AccountResponse> createAccount(
             @Valid @RequestBody CreateAccountRequest request) {
@@ -27,50 +28,46 @@ public class AccountController {
                 .body(accountService.createAccount(request));
     }
 
+    // Get account details
     @GetMapping("/{accountNumber}")
     public ResponseEntity<AccountResponse> getAccount(
             @PathVariable String accountNumber) {
         return ResponseEntity.ok(accountService.getAccount(accountNumber));
     }
 
+    // Get account balance
     @GetMapping("/{accountNumber}/balance")
     public ResponseEntity<BigDecimal> getBalance(
             @PathVariable String accountNumber) {
         return ResponseEntity.ok(accountService.getBalance(accountNumber));
     }
 
+    // Block account
     @PutMapping("/{accountNumber}/block")
     public ResponseEntity<String> blockAccount(
             @PathVariable String accountNumber) {
         accountService.blockAccount(accountNumber);
-        return ResponseEntity.ok("Account blocked Successfully");
+        return ResponseEntity.ok("Account blocked successfully");
     }
 
     /**
-     *  SAFA STEP 1 - Deduct Balance
-     *  Called by Transaction Service when transfer is initiated
+     * SAGA STEP 1 — Deduct balance.
+     * Called by Transaction Service when transfer is initiated.
      */
-
     @PutMapping("/{accountNumber}/deduct")
     public ResponseEntity<String> deductBalance(
             @PathVariable String accountNumber,
             @RequestParam BigDecimal amount) {
         accountService.deductBalance(accountNumber, amount);
-        return ResponseEntity.ok("Balance deducted Successfully");
+        return ResponseEntity.ok("Balance deducted successfully");
     }
 
-    /**
-     *  SAGA STEP 4 - Compensating transaction endpoint
-     *  CALLED BY TRANSACTION SERVICE in TWO SCENARIOS:
-     *  1. Fraud detected -> refund sender (undo step 1)
-     *  Called by Transaction Service when transfer is initiated
-     */
 
     @PutMapping("/{accountNumber}/credit")
     public ResponseEntity<String> creditBalance(
             @PathVariable String accountNumber,
             @RequestParam BigDecimal amount) {
         accountService.creditBalance(accountNumber, amount);
-        return ResponseEntity.ok("Balance credited Successfully");
+        return ResponseEntity.ok("Balance credited successfully");
     }
 }

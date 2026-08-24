@@ -1,27 +1,20 @@
 spring:
   application:
     name: account-service
-
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/account_db?createDatabaseIfNotExist=true
     username: root
     password: root
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
-    open-in-view: false
     hibernate:
       ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        format_sql: true
-
-server:
-  port: 8081
-
+        dialect: org.hibernate.dialect.MySQLDialect
   kafka:
-    boostrap-servers: localhost:9092
+    bootstrap-servers: localhost:29092
     consumer:
       group-id: account-service-group
       auto-offset-reset: earliest
@@ -32,15 +25,18 @@ server:
           json:
             trusted:
               packages: "*"
-              use:
-                type:
-                  headers: false
-                  value:
-                    default:
-                      type:java.util.HashMap
+            use:
+              type:
+                headers: false
+            value:
+              default:
+                type: java.util.HashMap
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.KsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+server:
+  port: 8081
 
 management:
   endpoints:

@@ -1,10 +1,10 @@
-package za.ac.banking.dto;
+package za.ac.banking.accountservice.dto;
 
+import za.ac.banking.accountservice.model.AccountStatus;
+import za.ac.banking.accountservice.model.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import za.ac.banking.model.AccountStatus;
-import za.ac.banking.model.AccountType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountResponse {
-
     private String id;
     private String accountNumber;
     private String accountHolderName;
