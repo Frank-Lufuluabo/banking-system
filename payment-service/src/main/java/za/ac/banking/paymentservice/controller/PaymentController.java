@@ -1,18 +1,15 @@
-package za.ac.banking.controller;
+package za.ac.banking.paymentservice.controller;
 
+import za.ac.banking.paymentservice.dto.CreatePaymentRequest;
+import za.ac.banking.paymentservice.dto.PaymentOrderResponse;
+import za.ac.banking.paymentservice.service.PaymentService;
 import com.razorpay.RazorpayException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import za.ac.banking.paymentservice.dto.CreatePaymentRequest;
-import za.ac.banking.paymentservice.dto.PaymentOrderResponse;
-import za.ac.banking.paymentservice.service.PaymentService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 

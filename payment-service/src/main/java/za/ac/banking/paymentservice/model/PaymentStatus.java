@@ -1,4 +1,4 @@
-package za.ac.banking.model;
+package za.ac.banking.paymentservice.model;
 
 public enum PaymentStatus {
     CREATED,

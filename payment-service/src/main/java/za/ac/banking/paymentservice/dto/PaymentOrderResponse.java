@@ -1,4 +1,4 @@
-package za.ac.banking.dto;
+package za.ac.banking.paymentservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

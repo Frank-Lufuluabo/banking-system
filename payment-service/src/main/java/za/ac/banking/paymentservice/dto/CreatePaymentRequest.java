@@ -1,4 +1,4 @@
-package za.ac.banking.dto;
+package za.ac.banking.paymentservice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

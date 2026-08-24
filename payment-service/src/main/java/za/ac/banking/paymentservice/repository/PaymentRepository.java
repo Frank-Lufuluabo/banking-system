@@ -1,8 +1,8 @@
-package za.ac.banking.repository;
+package za.ac.banking.paymentservice.repository;
 
+import za.ac.banking.paymentservice.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import za.ac.banking.paymentservice.model.Payment;
 
 import java.util.Optional;
 

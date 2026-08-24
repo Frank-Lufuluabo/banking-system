@@ -1,5 +1,10 @@
-package za.ac.banking.service;
+package za.ac.banking.paymentservice.service;
 
+import za.ac.banking.paymentservice.dto.CreatePaymentRequest;
+import za.ac.banking.paymentservice.dto.PaymentOrderResponse;
+import za.ac.banking.paymentservice.model.Payment;
+import za.ac.banking.paymentservice.model.PaymentStatus;
+import za.ac.banking.paymentservice.repository.PaymentRepository;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
@@ -9,11 +14,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import za.ac.banking.paymentservice.dto.CreatePaymentRequest;
-import za.ac.banking.paymentservice.dto.PaymentOrderResponse;
-import za.ac.banking.paymentservice.model.Payment;
-import za.ac.banking.paymentservice.model.PaymentStatus;
-import za.ac.banking.paymentservice.repository.PaymentRepository;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class PaymentService {
 
         RazorpayClient razorpay = new RazorpayClient(keyId, keySecret);
 
-        // Amount in paise (1 INR = 100 paise)
+        // Amount in cents (1 ZAR = 100 cents)
         int amountInPaise = request.getAmount()
                 .multiply(BigDecimal.valueOf(100))
                 .intValue();
@@ -64,7 +64,7 @@ public class PaymentService {
         payment.setRazorpayOrderId(razorpayOrder.get("id").toString());
         payment.setAccountNumber(request.getAccountNumber());
         payment.setAmount(request.getAmount());
-        payment.setCurrency("INR");
+        payment.setCurrency("ZAR");
         payment.setStatus(PaymentStatus.CREATED);
         payment.setDescription(request.getDescription());
 
@@ -74,12 +74,11 @@ public class PaymentService {
                 saved.getId(),
                 razorpayOrder.get("id").toString(),
                 request.getAmount(),
-                "INR",
+                "ZAR",
                 keyId,
                 "CREATED"
         );
     }
-
 
     public void handleWebhook(Map<String, Object> payload) {
         log.info("Received Razorpay webhook: {}", payload.get("event"));
