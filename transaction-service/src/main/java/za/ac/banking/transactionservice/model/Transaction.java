@@ -1,4 +1,4 @@
-package za.ac.banking.model;
+package za.ac.banking.transactionservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,9 +38,7 @@ public class Transaction {
     private TransactionStatus status;
 
     private String description;
-
     private String failureReason;
-
     private String referenceNumber;
 
     @CreationTimestamp

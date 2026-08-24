@@ -1,4 +1,4 @@
-package za.ac.banking.dto;
+package za.ac.banking.transactionservice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,14 +14,14 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class TransferRequest {
 
-    @NotBlank(message="Sender account number is required")
+    @NotBlank(message = "Sender account number is required")
     private String senderAccountNumber;
 
-    @NotBlank(message="Receiver account number is required")
+    @NotBlank(message = "Receiver account number is required")
     private String receiverAccountNumber;
 
-    @NotNull(message= "Amount is required")
-    @Positive(message="Amount must be positive")
+    @NotNull(message = "Amount is required")
+    @Positive(message = "Amount must be positive")
     private BigDecimal amount;
 
     private String description;

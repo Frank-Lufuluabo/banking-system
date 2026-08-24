@@ -1,14 +1,10 @@
-package za.ac.banking.dto;
+package za.ac.banking.transactionservice.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import za.ac.banking.transactionservice.model.TransactionStatus;
+import za.ac.banking.transactionservice.model.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import za.ac.banking.model.TransactionStatus;
-import za.ac.banking.model.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionResponse {
-
     private String id;
     private String senderAccountNumber;
     private String receiverAccountNumber;
@@ -25,8 +20,8 @@ public class TransactionResponse {
     private TransactionType type;
     private TransactionStatus status;
     private String description;
-    private String failureReason;
     private String referenceNumber;
+    private String failureReason;
     private LocalDateTime createdAt;
     private LocalDateTime completedAt;
 }
