@@ -1,0 +1,16 @@
+#transaction-service/Dockerfile
+
+# Step 1: Use Java 17 as base image
+FROM eclipse-temurin:17jre-alpine
+
+# Step 2: Set working directory inside container
+WORKDIR /app
+
+# Step 3: Copy the built jar file
+COPY target/transaction-service-0.01-SNAPSHOT.jar app.jar
+
+# Step 4: Expose port
+EXPOSE 8082
+
+# Step 5: Run the jar
+ENTRYPOINT ["java", "jar", "app.jar"]
